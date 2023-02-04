@@ -10,11 +10,13 @@ class RandomChar extends Component {
     constructor(props) {
         super(props);
         this.mlService = this.props.mlService;
+        this.tryBtnRed = React.createRef();
     }
 
 
     componentDidMount() {
         this._updateCharacter()
+        this.tryBtnRed.current.focus();
     }
 
     state = {
@@ -74,6 +76,7 @@ class RandomChar extends Component {
                             this._updateCharacter();
                             this.setState({loading: true})
                         }}
+                            ref={this.tryBtnRed}
                     >
                         <div className="inner">try it</div>
                     </button>

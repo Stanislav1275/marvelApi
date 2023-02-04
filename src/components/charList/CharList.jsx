@@ -1,16 +1,19 @@
 import './charList.scss';
 import {CharListItem} from "../charListItem/CharListItem.jsx";
-import {Component} from "react";
+import {Component, createRef} from "react";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
 import PropTypes from "prop-types";
 import MarvelService from "../../services/MarvelServices.js";
+import {setRef} from "@mui/material";
 
 class CharList extends Component {
     constructor(props) {
         super(props);
         this.mlService = this.props.mlService;
+
     }
+
 
     state = {
         loading: true,
@@ -19,19 +22,26 @@ class CharList extends Component {
         newItemsLoading: false,
         offset: 210,
         charsEnded: false,
-
     }
     renderItems = (listItems) => {
 
         const {setSelectedCharId} = this.props;
-        const items = listItems.map(({name, thumbnail, id}) => {
+        const items = listItems.map(({name, thumbnail, id}, index) => {
             let imgStyle = {'objectFit': 'cover'};
             if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit': 'unset'};
             }
-            return <CharListItem style={imgStyle} id={id} setSelectedCharId={setSelectedCharId} name={name}
-                                 src={thumbnail}
-                                 key={id}></CharListItem>
+            return <CharListItem
+                style={imgStyle}
+                id={id}
+                setSelectedCharId={setSelectedCharId}
+                name={name}
+                src={thumbnail}
+                key={id}
+                tabIndex = {index}
+                selected ={this.props.selectedCharId === id}
+            >
+            </CharListItem>
         })
 
         // А эта конструкция вынесена для центровки спиннера/ошибки
@@ -46,7 +56,9 @@ class CharList extends Component {
     componentDidMount() {
         this.onRequest();
     }
-
+    setRefItem = elem => {
+        this.setState({selectedRef:elem})
+    }
 
     onRequest = (offset) => {
         this.onCharListLoading();
@@ -106,8 +118,9 @@ class CharList extends Component {
     }
 
 }
+
 CharList.propTypes = {
-    mlService : PropTypes.instanceOf(MarvelService),
-    setSelectedCharId:PropTypes.func
+    mlService: PropTypes.instanceOf(MarvelService),
+    setSelectedCharId: PropTypes.func
 }
 export default CharList;

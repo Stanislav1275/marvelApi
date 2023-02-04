@@ -48,7 +48,7 @@ class App extends Component {
                             </RandomChar>
                         <div className="char__content">
                             <ErrorBoundery>
-                                <CharList  mlService = {this.mlService} setSelectedCharId = {this.setSelectedCharId}/>
+                                <CharList selectedCharId = {selectedCharId} mlService = {this.mlService} setSelectedCharId = {this.setSelectedCharId}/>
                             </ErrorBoundery>
                             <ErrorBoundery>
                                 <CharInfo mlService = {this.mlService} selectedCharId = {selectedCharId}/>

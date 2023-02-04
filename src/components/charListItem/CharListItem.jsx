@@ -1,13 +1,23 @@
-import abyss from "../../resources/img/abyss.jpg";
 import "./charListItem.scss"
-export function CharListItem({src, name, setSelectedCharId, id, style}) {
+import {createRef, useRef} from "react";
+
+export function CharListItem({src, name, setSelectedCharId, id, style, selected}) {
+    let activeStyle = (selected) ? "char__item selected" : "char__item"
     return (
-        <li className="char__item"
+        <li className={activeStyle}
             onClick={() => {
                 setSelectedCharId(id)
             }}
+            tabIndex={0}
+            onFocus={() => {
+                setSelectedCharId(id)
+            }
+
+            }
+
+
         >
-            <img style = {style} src={src} alt={name}/>
+            <img style={style} src={src} alt={name}/>
             <div className="char__name">{name}</div>
         </li>
     );
