@@ -1,0 +1,30 @@
+@import '../../style/responsability';
+
+.container{
+  background-color: red;
+  flex-basis: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  //align-content: space-between;
+  //justify-content: center;
+  //text-align: center;
+  //padding: 40px 35px;
+  //@include respond-to(common){
+  //  width: 100%;
+  //}
+  & .left{
+    margin-right: 10px;
+    background-color: red;
+
+    width: 50%;
+  }
+  & .left{
+    background-color: green;
+
+    width: 50%;
+  }
+
+}

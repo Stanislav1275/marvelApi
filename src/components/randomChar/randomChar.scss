@@ -1,0 +1,97 @@
+@import '../../style/variables.scss';
+@import "../../style/responsability.scss";
+.randomchar {
+  align-items: center;
+  margin:  0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  transition: all 1s ease-out;
+
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+  @include respond-to(common){
+    flex-direction: column;
+
+  }
+
+  &__block {
+    min-height: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    //align-content: space-between;
+    //justify-content: center;
+    //text-align: center;
+    padding: 40px 35px;
+    width: 50%;
+    @include respond-to(common){
+        width: 100%;
+    }
+  }
+
+  &__static {
+    width: 50%;
+
+  }
+
+  &__img {
+    width: auto;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  &__info {
+    margin-left: 10px;
+    padding-top: 3px;
+  }
+
+  &__name {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 29px;
+    text-transform: uppercase;
+  }
+
+  &__descr {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  &__btns {
+    a:nth-child(1) {
+      margin-right: 30px;
+    }
+  }
+
+  &__static {
+    padding: 40px 35px;
+    background-color: $dark;
+    position: relative;
+    @include respond-to(common){
+      width: 100%;
+    }
+    button {
+      margin-top: 13px;
+    }
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.045em;
+    color: #FFFFFF;
+
+    &:nth-child(2) {
+      margin-top: 33px;
+    }
+  }
+
+  &__decoration {
+    position: absolute;
+    bottom: 14px;
+    right: -37px;
+  }
+
+}
