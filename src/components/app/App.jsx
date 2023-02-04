@@ -37,7 +37,15 @@ class App extends Component {
             <div className="app">
                     <AppHeader/>
                     <main>
-                            <RandomChar mlService = {this.mlService}/>
+                            <RandomChar mlService = {this.mlService}>
+                                <p>
+                                    Random character for today!<br/>
+                                    Do you want to get to know him better?
+                                </p>
+                                <p>
+                                    Or choose another one
+                                </p>
+                            </RandomChar>
                         <div className="char__content">
                             <ErrorBoundery>
                                 <CharList  mlService = {this.mlService} setSelectedCharId = {this.setSelectedCharId}/>

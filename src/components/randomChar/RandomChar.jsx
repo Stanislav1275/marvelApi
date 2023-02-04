@@ -47,6 +47,7 @@ class RandomChar extends Component {
 
     render() {
         const {loading, error} = this.state;
+        const {children} = this.props;
         const content = (!loading && !error)?  <ErrorBoundery><RandomAbout state={this.state}/></ErrorBoundery> :null;
         const skeleton = (loading)?<Spinner/>:null;
         const errorMessage = (error)?<ErrorMessage/>:null;
@@ -59,13 +60,15 @@ class RandomChar extends Component {
                     {errorMessage}
                 </div>
                 <div className="randomchar__static">
-                    <p className="randomchar__title">
-                        Random character for today!<br/>
-                        Do you want to get to know him better?
-                    </p>
-                    <p className="randomchar__title">
-                        Or choose another one
-                    </p>
+                    {
+                        //клонирование children элементов с новым классом randomchar для статического блока над "try it"
+                        React.Children.map(this.props.children, child => {
+                            return React.cloneElement(child, {className:"randomchar__title"})
+                        })
+                    }
+
+
+
                     <button className="button button__main"
                         onClick={() => {
                             this._updateCharacter();
