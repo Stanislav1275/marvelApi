@@ -1,53 +1,41 @@
 import './charInfo.scss';
-import thor from '../../resources/img/thor.jpeg';
-import {Component} from "react";
+import {useEffect, useState} from "react";
 import Skeleton from "../skeleton/Skeleton.jsx";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
 
-class CharInfo extends Component {
-    state = {
-        loading: false,
-        error: false,
-        char: null
-    }
+const  CharInfo = ({selectedCharId, mlService}) =>  {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [char, setChar] = useState(null);
 
-    componentDidMount() {
-        this.updateChar();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.selectedCharId !== this.props.selectedCharId) {
-            this.updateChar();
-        }
-    }
-
-    updateChar = () => {
-        const {selectedCharId, mlService} = this.props;
+    useEffect(() => {
+        updateChar();
+    },[selectedCharId])
+    let updateChar = () => {
         if (!selectedCharId) return;
-        this.onCharLoading();
+        onCharLoading();
         mlService.getCharacter(selectedCharId)
-            .then(this.onCharLoaded)
-            .catch(this.onError);
+            .then(onCharLoaded)
+            .catch(onError);
     }
-    onError = () => {
-        this.setState({error: true})
+    let onError = () => {
+        setError(true);
+        setLoading(false);
     }
-    onCharLoaded = (char) => {
-        this.setState({loading: false, char: char});
+    let onCharLoaded = (char) => {
+        setLoading(false);
+        setChar(char);
+
     }
-    onCharLoading = () => {
-        this.setState({loading: true});
+    let onCharLoading = () => {
+        setLoading(true);
     }
 
-    render() {
-
-        const {char, error, loading} = this.state;
         const skeleton = char || loading || error ? null : <Skeleton/>;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = (!loading && !error && char) ? <View char={char}/> : null;
-
         return (
             <div className="char__info">
                 {skeleton}
@@ -56,7 +44,6 @@ class CharInfo extends Component {
                 {content}
             </div>
         )
-    }
 
 }
 
@@ -94,7 +81,7 @@ const View = ({char}) => {
                 {
                     viewComics.map((item, i) => {
                         return (
-                            <li  key={i} className="char__comics-item">
+                            <li key={i} className="char__comics-item">
                                 <a href={item.resourceURI}>
                                     {item.name}
                                 </a>

@@ -2,15 +2,15 @@ import '../randomChar/randomChar.scss'
 import {Fragment} from "react";
 import {Skeleton} from "@mui/material";
 
-export const RandomAbout = ({state}) => {
-    if (state.loading) return null;
+export const RandomAbout = ({char}) => {
+    // if (state.loading) return null;
     const {
         name,
         description,
         thumbnail,
         homepage,
         wiki,
-    } = state;
+    } = char;
     return (
         <Fragment>
 
