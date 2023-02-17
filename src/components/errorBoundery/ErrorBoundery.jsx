@@ -11,7 +11,6 @@ export class ErrorBoundery extends Component {
         return { error: true };
     }
     ComponentDidCatch(error, errorInfo) {
-        console.log(error)
         console.log(errorInfo)
     }
 

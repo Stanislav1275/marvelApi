@@ -12,7 +12,7 @@ const RandomChar = ({children}) => {
     let tryBtnRed = useRef(null);
     const [char, setChar] = useState(null);
 
-    const {loading, error, getCharacter} = useMarvel()
+    const {loading, error, getCharacter, clearError} = useMarvel()
 
     useEffect(() => {
         _updateCharacter();
@@ -20,27 +20,23 @@ const RandomChar = ({children}) => {
     }, [])
 
 
-    let _updateCharacter = () => {
-        let tick = 0;
+    let _updateCharacter = (ticks = 1) => {
+        // clearError()
         const id = Math.floor(Math.random() * (1010789 - 1009146) + 1009146);
-        getCharacter(id).then(data => {
-            console.log(data)
-            setChar(data);
-        }).catch(e => {
-            if (++tick > 10) {
-                return;
+        getCharacter(id).then(char => {
+            setChar(char);
+        }).catch((e) => {
+            if ((++ticks <= 30)){
+                _updateCharacter(++ticks);
             }
-            // _updateCharacter()
+            else throw e
         })
-
-
     }
 
-    const content = (!loading && !error) ?
+    const content = (!loading && !error && char) ?
         <ErrorBoundery>
             <RandomAbout char={char}/>
-        </ErrorBoundery>
-        : null;
+        </ErrorBoundery> : null;
     const skeleton = (loading) ? <Spinner/> : null;
     const errorMessage = (error) ? <ErrorMessage/> : null;
     return (
@@ -75,8 +71,5 @@ const RandomChar = ({children}) => {
 
     )
 }
-const View = ({char}) => {
 
-
-}
 export default RandomChar;

@@ -3,7 +3,7 @@ import {useHttp} from "../Hooks/http.hook.js";
 export class MarvelService {
     _apiBase = 'https://gateway.marvel.com:443/v1/public/';
     // ЗДЕСЬ БУДЕТ ВАШ КЛЮЧ, ЭТОТ КЛЮЧ МОЖЕТ НЕ РАБОТАТЬ
-    _apiKey = 'apikey=e05b20d1e098f48870a18161e254a825';
+    _apiKey = 'apikey=3bf254dd4a6d8bc9d57fae6dc9653f2a';
 
     getResource = async (url) => {
         let res = await fetch(url);

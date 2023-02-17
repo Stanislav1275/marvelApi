@@ -1,24 +1,29 @@
 import "./charListItem.scss"
-import {createRef, useRef} from "react";
+import {createRef, useEffect, useMemo, useRef} from "react";
 
 export function CharListItem({src, name, setSelectedCharId, id, style, selected}) {
+    useEffect(() => {
+        console.log("charListItem rerendered")
+    })
     let activeStyle = (selected) ? "char__item selected" : "char__item"
     return (
-        <li className={activeStyle}
-            onClick={() => {
-                setSelectedCharId(id)
-            }}
-            tabIndex={0}
-            onFocus={() => {
-                setSelectedCharId(id)
-            }
+        // /*useMemo(*/() =>
+            <li className={activeStyle}
+                onClick={() => {
+                    setSelectedCharId(id)
+                }}
+                tabIndex={0}
+                onFocus={() => {
+                    setSelectedCharId(id)
+                }
 
-            }
+                }
 
 
-        >
-            <img style={style} src={src} alt={name}/>
-            <div className="char__name">{name}</div>
-        </li>
+            >
+                <img style={style} src={src} alt={name}/>
+                <div className="char__name">{name}</div>
+            </li>
+        /*, []*/
     );
 }

@@ -1,20 +1,22 @@
 import './charList.scss';
 import {CharListItem} from "../charListItem/CharListItem.jsx";
-import {useEffect, useRef, useState} from "react";
+import React, {Suspense, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
 import PropTypes from "prop-types";
 import MarvelService from "../../services/MarvelServices.js";
 import useMarvel from "../../services/useMarvel.js";
+import {Skeleton} from "@mui/material";
 
-const CharList = ({mlService, setSelectedCharId, selectedCharId}) => {
-    const {loading, error, getLimitCharacters, getCharacter} = useMarvel();
+const CharList = ({setSelectedCharId, selectedCharId}) => {
+    const {loading, error, getLimitCharacters} = useMarvel();
     const [listItems, setListItems] = useState([]);
     const [newItemsLoading, setNewItemsLoading] = useState(false);
     const [offset, setOffset] = useState(210);
     const [charsEnded, setCharEnded] = useState(false);
     let renderItems = (listItems) => {
-        const items = listItems.map(({name, thumbnail, id}, index) => {
+
+        const items = useMemo(() => listItems.map(({name, thumbnail, id}, index) => {
             let imgStyle = {'objectFit': 'cover'};
             if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit': 'unset'};
@@ -30,7 +32,7 @@ const CharList = ({mlService, setSelectedCharId, selectedCharId}) => {
                 selected={selectedCharId === id}
             >
             </CharListItem>
-        })
+        }), [listItems])
 
         return (
             <ul className="char__grid">
@@ -39,17 +41,18 @@ const CharList = ({mlService, setSelectedCharId, selectedCharId}) => {
         )
 
     }
+
     useEffect(() => {
-        onRequest()
+        console.log("charList rerender")
+        onRequest(offset, true)
     }, [])
 
 
-
-    let onRequest = (offset) => {
-        onCharListLoading();
-        mlService.getLimitCharacters(offset)
+    let onRequest = (offset, isFirst = false) => {
+        setNewItemsLoading(!isFirst);//если isFirst, т.е эт не первая загрузка, то флаг новыеЭл-ы - false, эт для подгрузки
+        getLimitCharacters(offset)
             .then(onCharListLoaded)
-            .catch(onError)
+        // .catch(onError)
     }
 
     let onCharListLoaded = (chars) => {
@@ -58,18 +61,20 @@ const CharList = ({mlService, setSelectedCharId, selectedCharId}) => {
             ended = true;
         }
         // setLoading(false);
-        setListItems(prevListItems => {return [...prevListItems, ...chars]})
+        setListItems(prevListItems => [...prevListItems, ...chars])
         setNewItemsLoading(false)
         setOffset(prevOffset => prevOffset + 9)
         setCharEnded(ended);
     }
-    let onCharListLoading = () => {
-        setNewItemsLoading(true)
-    }
-
-    const spinner = loading ? <Spinner/> : null;
-    const elements = (!loading && !error) ? renderItems(listItems) : null;
+    const spinner = loading && !newItemsLoading ?
+        <div className="charListSpinnerWrapper">
+            {/*<Skeleton width = {215} height = {320}></Skeleton>*/}
+            {/*<Suspense></Suspense>*/}
+            <Spinner/>
+        </div>
+        : null;
     const errorMessage = error ? <ErrorMessage/> : null;
+    const elements = renderItems(listItems);
 
     return (
 
@@ -82,7 +87,7 @@ const CharList = ({mlService, setSelectedCharId, selectedCharId}) => {
                     disabled={newItemsLoading}
                     style={{'display': charsEnded ? 'none' : 'block'}}
                     onClick={() => {
-                        onRequest(offset)
+                        onRequest(offset, false)
                     }}
             >
                 <div

@@ -1,41 +1,33 @@
 import './charInfo.scss';
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import Skeleton from "../skeleton/Skeleton.jsx";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
+import useMarvel from "../../services/useMarvel.js";
 
-const  CharInfo = ({selectedCharId, mlService}) =>  {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+const  CharInfo = ({selectedCharId}) =>  {
+    const {error, loading, clearError, getCharacter} = useMarvel()
     const [char, setChar] = useState(null);
 
     useEffect(() => {
         updateChar();
     },[selectedCharId])
     let updateChar = () => {
+        // clearError();
         if (!selectedCharId) return;
-        onCharLoading();
-        mlService.getCharacter(selectedCharId)
-            .then(onCharLoaded)
-            .catch(onError);
+        // onCharLoading();
+        getCharacter(selectedCharId)
+            .then(setChar)
     }
-    let onError = () => {
-        setError(true);
-        setLoading(false);
-    }
-    let onCharLoaded = (char) => {
-        setLoading(false);
-        setChar(char);
 
-    }
-    let onCharLoading = () => {
-        setLoading(true);
-    }
 
         const skeleton = char || loading || error ? null : <Skeleton/>;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = (!loading && !error && char) ? <View char={char}/> : null;
+        const  view = useMemo(() => {
+            return <View char={char}/>
+        },[char])
+        const content = (!loading && !error && char) ? view: null;
         return (
             <div className="char__info">
                 {skeleton}
@@ -48,6 +40,9 @@ const  CharInfo = ({selectedCharId, mlService}) =>  {
 }
 
 const View = ({char}) => {
+    useEffect(() => {
+        console.log("chainfo rerendered!")
+    })
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
     let imgStyle = {'objectFit': 'cover'};

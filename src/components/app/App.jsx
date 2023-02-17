@@ -4,31 +4,15 @@ import CharList from "../charList/CharList.jsx";
 import CharInfo from "../charInfo/CharInfo.jsx";
 
 import decoration from '../../resources/img/vision.png';
-import React, {useEffect, useState} from "react";
-import useMarvel from "../../services/useMarvel.js";
-// import MarvelService from "../../services/MarvelServices.js";
+import React, {useState} from "react";
 import {ErrorBoundery} from "../errorBoundery/ErrorBoundery.jsx";
 
 const App = () => {
 
-    let mlService = useMarvel();
-    // const {getLimitCharacters} = mlService;
     const [selectedCharId, setSelectedCharId] = useState(null);
-    // const [listItem, setListItem] = useState([]);
-
-    // let itemsUpdate = () => {
-    //     getLimitCharacters(9).then(data => {
-    //
-    //         setListItem(data)
-    //
-    //     })
-    // }
     let onCharSelected = (id) => {
         setSelectedCharId(id);
     }
-    // useEffect(() => {
-    //     itemsUpdate()
-    // }, []);
     return (
         <div className="app">
             <AppHeader/>
@@ -46,13 +30,13 @@ const App = () => {
                 </ErrorBoundery>
 
                 <div className="char__content">
-                    {/*<ErrorBoundery>*/}
-                    {/*    <CharList selectedCharId={selectedCharId}*/}
-                    {/*              setSelectedCharId={onCharSelected}/>*/}
-                    {/*</ErrorBoundery>*/}
-                    {/*<ErrorBoundery>*/}
-                    {/*    <CharInfo mlService={mlService} selectedCharId={selectedCharId}/>*/}
-                    {/*</ErrorBoundery>*/}
+                    <ErrorBoundery>
+                        <CharList selectedCharId={selectedCharId}
+                                  setSelectedCharId={onCharSelected}/>
+                    </ErrorBoundery>
+                    <ErrorBoundery>
+                        <CharInfo selectedCharId={selectedCharId}/>
+                    </ErrorBoundery>
                 </div>
                 <img className="bg-decoration" src={decoration} alt="vision"/>
             </main>

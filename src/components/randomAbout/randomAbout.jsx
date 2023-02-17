@@ -4,13 +4,13 @@ import {Skeleton} from "@mui/material";
 
 export const RandomAbout = ({char}) => {
     // if (state.loading) return null;
-    const {
-        name,
-        description,
-        thumbnail,
-        homepage,
-        wiki,
-    } = char;
+        const {
+            name,
+            description,
+            thumbnail,
+            homepage,
+            wiki,
+        } = char;
     return (
         <Fragment>
 
