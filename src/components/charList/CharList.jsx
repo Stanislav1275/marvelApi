@@ -1,12 +1,11 @@
 import './charList.scss';
 import {CharListItem} from "../charListItem/CharListItem.jsx";
-import React, {Suspense, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
 import PropTypes from "prop-types";
 import MarvelService from "../../services/MarvelServices.js";
 import useMarvel from "../../services/useMarvel.js";
-import {Skeleton} from "@mui/material";
 
 const CharList = ({setSelectedCharId, selectedCharId}) => {
     const {loading, error, getLimitCharacters} = useMarvel();

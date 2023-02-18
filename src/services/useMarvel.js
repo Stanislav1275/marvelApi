@@ -19,9 +19,12 @@ const useMarvel = () => {
 
     const getCharacter = async (id) => {
         clearError()
+
         const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
+
         return _transformCharacter(res.data.results[0]);
     };
+
 
     const getAllComics = async (offset = 0) => {
         clearError()
