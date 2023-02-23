@@ -23,6 +23,7 @@ const RandomChar = ({children}) => {
     let _updateCharacter = (ticks = 1) => {
         // clearError()
         const id = Math.floor(Math.random() * (1010789 - 1009146) + 1009146);
+        // const id = Math.floor(Math.random() * (16));
         getCharacter(id).then(char => {
             setChar(char);
         }).catch((e) => {
@@ -34,18 +35,18 @@ const RandomChar = ({children}) => {
     }
 
     const content = (!loading && !error && char) ?
-        <ErrorBoundery>
-            <RandomAbout char={char}/>
-        </ErrorBoundery> : null;
+        // <ErrorBoundery>
+            <RandomAbout char={char}/>:null;
+        {/*</ErrorBoundery> : null;*/}
     const skeleton = (loading) ? <Spinner/> : null;
-    const errorMessage = (error) ? <ErrorMessage/> : null;
+    // const errorMessage = (error) ? <ErrorMessage/> : null;
     return (
 
         <div className="randomchar">
             <div className="randomchar__block">
                 {content}
                 {skeleton}
-                {errorMessage}
+                {/*{errorMessage}*/}
             </div>
             <div className="randomchar__static">
                 {

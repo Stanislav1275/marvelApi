@@ -7,6 +7,8 @@ import useMarvel from "../../services/useMarvel.js";
 
 const  CharInfo = ({selectedCharId}) =>  {
     const {error, loading, clearError, getCharacter} = useMarvel()
+    console.log(error)
+
     const [char, setChar] = useState(null);
 
     useEffect(() => {

@@ -51,7 +51,7 @@ const CharList = ({setSelectedCharId, selectedCharId}) => {
         setNewItemsLoading(!isFirst);//если isFirst, т.е эт не первая загрузка, то флаг новыеЭл-ы - false, эт для подгрузки
         getLimitCharacters(offset)
             .then(onCharListLoaded)
-        // .catch(onError)
+
     }
 
     let onCharListLoaded = (chars) => {
