@@ -1,11 +1,22 @@
 import AppHeader from "../appHeader/AppHeader.jsx";
-import RandomChar from "../randomChar/RandomChar.jsx";
-import CharList from "../charList/CharList.jsx";
-import CharInfo from "../charInfo/CharInfo.jsx";
-
-import decoration from '../../resources/img/vision.png';
-import React, {useState} from "react";
+import React, {createContext, useState} from "react";
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom"
+import {Suspense, lazy} from 'react';
+import Spinner from "../spinner/Spinner.jsx";
 import {ErrorBoundery} from "../errorBoundery/ErrorBoundery.jsx";
+
+const NotFoundPage = lazy(() =>
+    import("../pages/404/NotFoundPage.jsx")
+);
+const MainPage = lazy(() =>
+    import("../pages/mainPage/MainPage.jsx")
+);
+const ComicsPage = lazy(() =>
+    import("../pages/comicsPage/ComicsPage.jsx")
+);
+const SingleComic = lazy(() =>
+    import("../pages/singleComic/SingleComic.jsx")
+);
 
 const App = () => {
 
@@ -13,34 +24,33 @@ const App = () => {
     let onCharSelected = (id) => {
         setSelectedCharId(id);
     }
-    return (
-        <div className="app">
-            <AppHeader/>
-            <main>
-                <ErrorBoundery>
-                    <RandomChar>
-                        <p>
-                            Random character for today!<br/>
-                            Do you want to get to know him better?
-                        </p>
-                        <p>
-                            Or choose another one
-                        </p>
-                    </RandomChar>
-                </ErrorBoundery>
 
-                <div className="char__content">
-                    <ErrorBoundery>
-                        <CharList selectedCharId={selectedCharId}
-                                  setSelectedCharId={onCharSelected}/>
-                    </ErrorBoundery>
-                    <ErrorBoundery>
-                        <CharInfo selectedCharId={selectedCharId}/>
-                    </ErrorBoundery>
-                </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
-            </main>
-        </div>
+    return (
+        <BrowserRouter>
+
+            <div className="app">
+              <dataContext.Provider value={{name : 'ds'}}>
+                <AppHeader/>
+              </dataContext.Provider>
+                <main>
+                    <Suspense fallback={<Spinner/>}>
+                        <ErrorBoundery>
+
+                            <Routes>
+                                <Route end path="/"
+                                       element={<MainPage selectedCharId={selectedCharId} onCharSelected={id => {
+                                           onCharSelected(id)
+                                       }}/>}/>
+                                <Route end path="/comics" element={<ComicsPage/>}/>
+                                <Route end path="/comics/:id" element={<SingleComic/>}/>
+                                <Route path="*" element={<NotFoundPage/>}/>
+                            </Routes>
+                        </ErrorBoundery>
+
+                    </Suspense>
+                </main>
+            </div>
+        </BrowserRouter>
     )
 }
 

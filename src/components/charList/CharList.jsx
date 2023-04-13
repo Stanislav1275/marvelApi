@@ -42,7 +42,6 @@ const CharList = ({setSelectedCharId, selectedCharId}) => {
     }
 
     useEffect(() => {
-        console.log("charList rerender")
         onRequest(offset, true)
     }, [])
 

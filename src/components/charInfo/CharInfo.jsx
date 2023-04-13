@@ -7,7 +7,6 @@ import useMarvel from "../../services/useMarvel.js";
 
 const  CharInfo = ({selectedCharId}) =>  {
     const {error, loading, clearError, getCharacter} = useMarvel()
-    console.log(error)
 
     const [char, setChar] = useState(null);
 
@@ -42,9 +41,7 @@ const  CharInfo = ({selectedCharId}) =>  {
 }
 
 const View = ({char}) => {
-    useEffect(() => {
-        console.log("chainfo rerendered!")
-    })
+
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
     let imgStyle = {'objectFit': 'cover'};
