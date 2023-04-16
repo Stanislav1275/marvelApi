@@ -1,7 +1,7 @@
 import { useHttp } from "../hooks/http.hook";
 
 const useMarvel = () => {
-    const { loading, request, error, clearError } = useHttp();
+    const { loading, request, error, clearError , setProcess, process} = useHttp();
 
     const _apiBase = "https://gateway.marvel.com:443/v1/public/";
     // ЗДЕСЬ БУДЕТ ВАШ КЛЮЧ, ЭТОТ КЛЮЧ МОЖЕТ НЕ РАБОТАТЬ
@@ -79,6 +79,8 @@ const useMarvel = () => {
         getCharacter,
         getAllComics,
         getComics,
+        process,
+        setProcess
     };
 };
 

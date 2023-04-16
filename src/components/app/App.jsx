@@ -26,9 +26,9 @@ const App = () => {
 
     return (
         <BrowserRouter>
-
+            {/*использование контекста*/}
             <div className="app">
-              <dataContext.Provider value={{name : 'ds'}}>//использование контекста
+              <dataContext.Provider value={{name : 'ds'}}>
                 <AppHeader/>
               </dataContext.Provider>
                 <main>

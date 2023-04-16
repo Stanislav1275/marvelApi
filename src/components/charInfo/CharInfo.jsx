@@ -4,43 +4,36 @@ import Skeleton from "../skeleton/Skeleton.jsx";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
 import useMarvel from "../../services/useMarvel.js";
+import {setState} from "../../FSM/marvel-state-machine.jsx";
 
-const  CharInfo = ({selectedCharId}) =>  {
-    const {error, loading, clearError, getCharacter} = useMarvel()
+const CharInfo = ({selectedCharId}) => {
+    const {error, loading, clearError, getCharacter, process, setProcess} = useMarvel()
 
     const [char, setChar] = useState(null);
 
     useEffect(() => {
         updateChar();
-    },[selectedCharId])
+    }, [selectedCharId])
     let updateChar = () => {
         // clearError();
         if (!selectedCharId) return;
         // onCharLoading();
         getCharacter(selectedCharId)
             .then(setChar)
+            .then(() => {
+                setProcess("access")
+            })
     }
 
-
-        const skeleton = char || loading || error ? null : <Skeleton/>;
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
-        const  view = useMemo(() => {
-            return <View char={char}/>
-        },[char])
-        const content = (!loading && !error && char) ? view: null;
-        return (
-            <div className="char__info">
-                {skeleton}
-                {errorMessage}
-                {spinner}
-                {content}
-            </div>
-        )
+    return (
+        <div className="char__info">
+            {setState(process, View, char)}
+        </div>
+    )
 
 }
 
-const View = (({char}) => {
+const View = (({data : char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
     let imgStyle = {'objectFit': 'cover'};
