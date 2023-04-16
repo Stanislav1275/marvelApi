@@ -66,8 +66,6 @@ const CharList = ({setSelectedCharId, selectedCharId}) => {
     }
     const spinner = loading && !newItemsLoading ?
         <div className="charListSpinnerWrapper">
-            {/*<Skeleton width = {215} height = {320}></Skeleton>*/}
-            {/*<Suspense></Suspense>*/}
             <Spinner/>
         </div>
         : null;

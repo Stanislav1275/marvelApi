@@ -1,5 +1,5 @@
 import './charInfo.scss';
-import {useEffect, useMemo, useState} from "react";
+import {memo, useEffect, useMemo, useState} from "react";
 import Skeleton from "../skeleton/Skeleton.jsx";
 import Spinner from "../spinner/Spinner.jsx";
 import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
@@ -40,8 +40,7 @@ const  CharInfo = ({selectedCharId}) =>  {
 
 }
 
-const View = ({char}) => {
-
+const View = (({char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
     let imgStyle = {'objectFit': 'cover'};
@@ -86,5 +85,5 @@ const View = ({char}) => {
             </ul>
         </>
     )
-}
+})
 export default CharInfo;
