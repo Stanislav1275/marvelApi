@@ -1,16 +1,11 @@
 import './charInfo.scss';
-import {memo, useEffect, useMemo, useState} from "react";
-import Skeleton from "../skeleton/Skeleton.jsx";
-import Spinner from "../spinner/Spinner.jsx";
-import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
+import {useEffect, useMemo, useState} from "react";
 import useMarvel from "../../services/useMarvel.js";
-import {setState} from "../../FSM/marvel-state-machine.jsx";
+import {setState} from "../../FSM/setContentDefault.jsx";
 
 const CharInfo = ({selectedCharId}) => {
-    const {error, loading, clearError, getCharacter, process, setProcess} = useMarvel()
-
+    const {getCharacter, process, setProcess} = useMarvel()
     const [char, setChar] = useState(null);
-
     useEffect(() => {
         updateChar();
     }, [selectedCharId])

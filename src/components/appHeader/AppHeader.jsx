@@ -3,8 +3,6 @@ import {BrowserRouter, Link, NavLink} from "react-router-dom";
 import {useContext} from "react";
 import {dataContext} from "../../context/context.js"
 const AppHeader = () => {
-    const t = useContext(dataContext);
-    console.log(t)
     return (
         // <BrowserRouter>
         <header className="app__header">

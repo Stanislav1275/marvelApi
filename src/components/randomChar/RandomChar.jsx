@@ -6,13 +6,13 @@ import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
 import Spinner from "../spinner/Spinner.jsx";
 import {ErrorBoundery} from "../errorBoundery/ErrorBoundery.jsx";
 import useMarvel from "../../services/useMarvel.js";
-
+import {setState} from "../../FSM/setContentDefault.jsx"
 const RandomChar = ({children}) => {
 
     let tryBtnRed = useRef(null);
     const [char, setChar] = useState(null);
 
-    const {loading, error, getCharacter, clearError} = useMarvel()
+    const {getCharacter, process, setProcess} = useMarvel()
 
     useEffect(() => {
         _updateCharacter();
@@ -24,9 +24,14 @@ const RandomChar = ({children}) => {
         // clearError()
         const id = Math.floor(Math.random() * (1010789 - 1009146) + 1009146);
         // const id = Math.floor(Math.random() * (16));
-        getCharacter(id).then(char => {
-            setChar(char);
-        }).catch((e) => {
+        getCharacter(id)
+            .then(char => {
+            setChar(char)
+        })
+            .then(() => {
+                setProcess("access")
+            })
+            .catch((e) => {
             if ((++ticks <= 30)){
                 _updateCharacter(++ticks);
             }
@@ -34,18 +39,19 @@ const RandomChar = ({children}) => {
         })
     }
 
-    const content = (!loading && !error && char) ?
-        // <ErrorBoundery>
-            <RandomAbout char={char}/>:null;
-        {/*</ErrorBoundery> : null;*/}
-    const skeleton = (loading) ? <Spinner/> : null;
-    // const errorMessage = (error) ? <ErrorMessage/> : null;
+    // const content = (!loading && !error && char) ?
+    //     // <ErrorBoundery>
+    //         <RandomAbout data={char}/>:null;
+    //     {/*</ErrorBoundery> : null;*/}
+    // const skeleton = (loading) ? <Spinner/> : null;
+    // // const errorMessage = (error) ? <ErrorMessage/> : null;
     return (
 
         <div className="randomchar">
             <div className="randomchar__block">
-                {content}
-                {skeleton}
+                {setState(process, RandomAbout, char)}
+                {/*{content}*/}
+                {/*{skeleton}*/}
                 {/*{errorMessage}*/}
             </div>
             <div className="randomchar__static">

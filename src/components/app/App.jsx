@@ -19,6 +19,7 @@ const SingleComic = lazy(() =>
 );
 
 const App = () => {
+    console.log(1)
     const [selectedCharId, setSelectedCharId] = useState(null);
     let onCharSelected = (id) => {
         setSelectedCharId(id);

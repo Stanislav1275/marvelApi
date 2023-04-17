@@ -2,7 +2,7 @@ import '../randomChar/randomChar.scss'
 import {Fragment} from "react";
 import {Skeleton} from "@mui/material";
 
-export const RandomAbout = ({char}) => {
+export const RandomAbout = ({data : char}) => {
     // if (state.loading) return null;
         const {
             name,

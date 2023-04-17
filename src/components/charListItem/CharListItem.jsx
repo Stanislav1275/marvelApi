@@ -2,6 +2,7 @@ import "./charListItem.scss"
 import {createRef, useEffect, useMemo, useRef} from "react";
 
 export function CharListItem({src, name, setSelectedCharId, id, style, selected}) {
+    console.log("item rerendered")
 
     let activeStyle = (selected) ? "char__item selected" : "char__item"
     return (

@@ -4,35 +4,37 @@ import useMarvel from "../../../services/useMarvel.js";
 import {createContext, useContext, useEffect, useMemo, useState} from "react";
 import Spinner from "../../spinner/Spinner.jsx";
 import ErrorMessage from "../../errorMessage/ErrorMesage.jsx";
+import {setState} from "../../../FSM/setContentDefault.jsx";
 
 const SingleComic = () => {
 
     const {id} = useParams();
-    const {loading, error, getComics} = useMarvel();
+    const {getComics, process, setProcess} = useMarvel();
     const [info, setInfo] = useState(null);
     useEffect(() => {
         updateComic();
     }, [id])
     let updateComic = () => {
-        // clearError();
         if (!id) return;
-        // onCharLoading();
         getComics(id)
             .then(setInfo)
+            .then(() => setProcess("access"))
     }
-    const spinner = loading && !error ? <Spinner/> : null;
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const content = !loading && !error && info ? <View {...info}/> : null;
+    // const spinner = loading && !error ? <Spinner/> : null;
+    // const errorMessage = error ? <ErrorMessage/> : null;
+    // const content = !loading && !error && info ? <View {...info}/> : null;
     return (
         <div className="single-comic">
-
-            {spinner}
-            {errorMessage}
-            {content}
+            {setState(process, View, {...info})}
+            {/*{spinner}*/}
+            {/*{errorMessage}*/}
+            {/*{content}*/}
         </div>
     )
 }
-const View = ({description, title, thumbnail, pageCount, price, language}) => {
+const View = ({data}) => {
+    const {description, title, thumbnail, pageCount, price, language} = data;
+    console.log(description)
     return (
         <>
             <img src={thumbnail} alt={title} className="single-comic__img"/>

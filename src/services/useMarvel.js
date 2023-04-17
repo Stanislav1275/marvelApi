@@ -72,8 +72,8 @@ const useMarvel = () => {
     };
 
     return {
-        loading,
-        error,
+        // loading,
+        // error,
         clearError,
         getLimitCharacters,
         getCharacter,
