@@ -1,5 +1,4 @@
 import "./myskeleton.scss"
-import {Skeleton} from "@mui/material";
 export function MySkeleton() {
     return (
         <div className="container">
