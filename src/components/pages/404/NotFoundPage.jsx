@@ -1,4 +1,4 @@
-import ErrorMessage from "../../errorMessage/ErrorMesage.jsx";
+import ErrorMessage from "../../errorMessage/ErrorMesage.tsx";
 import("./notFoundPage.scss")
 const NotFoundPage = () => {
     return (

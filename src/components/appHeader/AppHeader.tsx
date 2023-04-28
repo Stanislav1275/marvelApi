@@ -1,7 +1,6 @@
 import './appHeader.scss';
-import {BrowserRouter, Link, NavLink} from "react-router-dom";
-import {useContext} from "react";
-import {dataContext} from "../../context/context.js"
+import {NavLink} from "react-router-dom";
+
 const AppHeader = () => {
     return (
         // <BrowserRouter>
@@ -28,6 +27,14 @@ const AppHeader = () => {
                             }
                         )
                         } to={"/comics"}>Comics</NavLink>
+                    </li>
+                    <li>
+                        <NavLink end style={({isActive}) => (
+                            {
+                                color: isActive ? "#9F0013" : "inherit"
+                            }
+                        )
+                        } to={"/lib"}>Characters Library</NavLink>
                     </li>
                 </ul>
             </nav>

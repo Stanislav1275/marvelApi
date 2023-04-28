@@ -1,9 +1,9 @@
-import AppHeader from "../appHeader/AppHeader.jsx";
+import AppHeader from "../appHeader/AppHeader";
 import React, {createContext, useState} from "react";
 import {BrowserRouter, Route, Router, Routes} from "react-router-dom"
 import {Suspense, lazy} from 'react';
-import Spinner from "../spinner/Spinner.jsx";
-import {ErrorBoundery} from "../errorBoundery/ErrorBoundery.jsx";
+import Spinner from "../spinner/Spinner";
+import {ErrorBoundery} from "../errorBoundery/ErrorBoundery";
 import {dataContext} from "../../context/context.js"
 const NotFoundPage = lazy(() =>
     import("../pages/404/NotFoundPage.jsx")
@@ -21,7 +21,8 @@ const SingleComic = lazy(() =>
 const App = () => {
     console.log(1)
     const [selectedCharId, setSelectedCharId] = useState(null);
-    let onCharSelected = (id) => {
+    let onCharSelected = (id:number) => {
+        // @ts-ignore
         setSelectedCharId(id);
     }
 
@@ -36,13 +37,13 @@ const App = () => {
                     <Suspense fallback={<Spinner/>}>
                         <ErrorBoundery>
                             <Routes>
-                                <Route end path="/"
+                                <Route path="/"
                                        element={<MainPage selectedCharId={selectedCharId} onCharSelected={id => {
                                            onCharSelected(id)
                                        }}/>}
                                 />
-                                <Route end path="/comics" element={<ComicsPage/>}/>
-                                <Route end path="/comics/:id" element={<SingleComic/>}/>
+                                <Route path="/comics" element={<ComicsPage/>}/>
+                                <Route path="/comics/:id" element={<SingleComic/>}/>
                                 <Route path="*" element={<NotFoundPage/>}/>
                             </Routes>
                         </ErrorBoundery>

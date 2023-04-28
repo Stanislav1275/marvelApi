@@ -1,6 +1,6 @@
 import Skeleton from "../components/skeleton/Skeleton.jsx";
-import Spinner from "../components/spinner/Spinner.jsx";
-import ErrorMessage from "../components/errorMessage/ErrorMesage.jsx";
+import Spinner from "../components/spinner/Spinner.tsx";
+import ErrorMessage from "../components/errorMessage/ErrorMesage.tsx";
 
 export const setState = (process, Component, data, newItemsLoading) => {
     switch (process) {

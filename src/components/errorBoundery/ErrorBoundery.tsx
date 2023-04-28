@@ -1,8 +1,14 @@
 import {Component} from "react";
-import ErrorMesage from "../errorMessage/ErrorMesage.jsx";
-import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
+import ErrorMesage from "../errorMessage/ErrorMesage";
+import ErrorMessage from "../errorMessage/ErrorMesage";
+interface IRecipeProps{
+    children : any
+}
+interface IRecipeState{
+    error: boolean
+}
+export class ErrorBoundery extends Component<IRecipeProps,IRecipeState> {
 
-export class ErrorBoundery extends Component {
     state = {
         error: false
     }
@@ -10,7 +16,7 @@ export class ErrorBoundery extends Component {
         // Update state so the next render will show the fallback UI.
         return { error: true };
     }
-    ComponentDidCatch(error, errorInfo) {
+    ComponentDidCatch(error : boolean, errorInfo : string) {
         console.log(errorInfo)
     }
 

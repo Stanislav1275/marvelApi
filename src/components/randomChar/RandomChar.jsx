@@ -2,9 +2,9 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 import React, {Component, useEffect, useRef, useState} from "react";
 import {RandomAbout} from "../randomAbout/randomAbout.jsx";
-import ErrorMessage from "../errorMessage/ErrorMesage.jsx";
-import Spinner from "../spinner/Spinner.jsx";
-import {ErrorBoundery} from "../errorBoundery/ErrorBoundery.jsx";
+import ErrorMessage from "../errorMessage/ErrorMesage.tsx";
+import Spinner from "../spinner/Spinner.tsx";
+import {ErrorBoundery} from "../errorBoundery/ErrorBoundery.tsx";
 import useMarvel from "../../services/useMarvel.js";
 import {setState} from "../../FSM/setContentDefault.jsx"
 const RandomChar = ({children}) => {

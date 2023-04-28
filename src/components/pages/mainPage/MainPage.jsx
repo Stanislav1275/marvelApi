@@ -1,4 +1,4 @@
-import {ErrorBoundery} from "../../errorBoundery/ErrorBoundery.jsx";
+import {ErrorBoundery} from "../../errorBoundery/ErrorBoundery.tsx";
 import RandomChar from "../../randomChar/RandomChar.jsx";
 import CharList from "../../charList/CharList.jsx";
 import CharInfo from "../../charInfo/CharInfo.jsx";

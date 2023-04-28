@@ -2,8 +2,8 @@ import './singleComic.scss';
 import {Link, useParams} from "react-router-dom";
 import useMarvel from "../../../services/useMarvel.js";
 import {createContext, useContext, useEffect, useMemo, useState} from "react";
-import Spinner from "../../spinner/Spinner.jsx";
-import ErrorMessage from "../../errorMessage/ErrorMesage.jsx";
+import Spinner from "../../spinner/Spinner.tsx";
+import ErrorMessage from "../../errorMessage/ErrorMesage.tsx";
 import {setState} from "../../../FSM/setContentDefault.jsx";
 
 const SingleComic = () => {
